@@ -1,5 +1,5 @@
-PirateBox Landing Website Design
-=========
+PirateBox 3.0
+=============
 
 Complete revamp of the Piratebox UI with additional features.
 
@@ -18,7 +18,7 @@ Here is an overview of the available features:
 
 ###Dependencies###
 
-This redesign is implemented using Twitter Bootstrap and Flask (python microframework).
+This application is implemented using Twitter Bootstrap and Flask (python microframework).
 
 ###---Credits---###
 

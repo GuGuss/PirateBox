@@ -4,33 +4,44 @@ import os
 import codecs
 
 app = Flask(__name__)
-# This line causes an error http://stackoverflow.com/questions/12550913/flask-bable-jinja2-templates-html-syntaxerror-invalid-syntax
-#app.config.from_pyfile('babel.cfg')
+
+# Work with Flask Babel which handles translations
 babel = Babel(app)
 
 # --------- #
 # FUNCTIONS #
 # --------- #
 
-# allow extension inclusion
-def include_extension(extension_name):
+# include an existing extension
+def extension_include(extension_name):
 	file_name = 'extensions/' + extension_name + '/extension.py'
 	if os.path.exists(file_name):
 		execfile(file_name)
+		print gettext(u'Your extension has been correctly included.')
+	else:
+		print gettext(u'You need an extension.py file to load this extension.')
 
-# render extension template
-def render_extension_template(template, **context):
+# check all existing extensions
+def extension_check():
+	for root, dirs, files in os.walk('extensions'):
+		for dir in dirs:
+			extension_include(dir)
+			
+# render an extension template
+def extension_render_template(template, **context):
 	with codecs.open('extensions/' + template, 'r', encoding='utf-8') as content_file:
 		content = content_file.read()
 	return render_template_string(content, context=context)
 
-# load all available extensions
-# @TODO
-include_extension('openstreetmap')
-include_extension('helloworld')
-
 def render_layout(content, title=None):
 	return render_template('layout.html', content=content, title=title)
+
+# define the user language
+@babel.localeselector
+def get_locale():
+	if 'username' in session:
+		return 'de'
+	return 'fr'
 
 # ------ #
 # ROUTES #
@@ -64,7 +75,7 @@ def login():
 	if request.method == 'POST':
 		session['username'] = request.form['username']
 		return redirect(url_for('index'))
-	return render_template('login.html')
+	return render_layout(render_template('login.html'), 'Login')
 
 @app.route('/logout')
 def logout():
@@ -72,12 +83,12 @@ def logout():
 	session.pop('username', None)
 	return redirect(url_for('index'))
 
-# define the user language
-@babel.localeselector
-def get_locale():
-	if 'username' in session:
-		return 'de'
-	return 'fr'
+
+
+
+# load the available extensions
+extension_check()
+
 
 if __name__ == '__main__':
 	# set the debug mode.
