@@ -6,6 +6,7 @@ import codecs
 app = Flask(__name__)
 
 # Work with Flask Babel which handles translations
+app.config['BABEL_DEFAULT_LOCALE'] = 'en'
 babel = Babel(app)
 
 # --------- #
@@ -17,14 +18,14 @@ def extension_include(extension_name):
 	file_name = 'extensions/' + extension_name + '/extension.py'
 	if os.path.exists(file_name):
 		execfile(file_name)
-		print gettext(u'Your extension has been correctly included.')
+		print gettext(u'[Success] %(extension)s has been correctly included', extension=extension_name)
 	else:
-		print gettext(u'You need an extension.py file to load this extension.')
+		print gettext(u'[Error] %(extension)s couldn\'t be included. "extension.py" file is missing.', extension=extension_name)
 
 # check all existing extensions
 def extension_check():
-	for root, dirs, files in os.walk('extensions'):
-		for dir in dirs:
+	for dir in os.listdir('extensions'):
+		if os.path.isdir('extensions/' + dir):
 			extension_include(dir)
 			
 # render an extension template
@@ -36,12 +37,13 @@ def extension_render_template(template, **context):
 def render_layout(content, title=None):
 	return render_template('layout.html', content=content, title=title)
 
-# define the user language
 @babel.localeselector
 def get_locale():
+	# @Todo: improve the language selection with language selector
 	if 'username' in session:
 		return 'de'
-	return 'fr'
+	# try to guess the language from the user accept header the browser transmits
+	return request.accept_languages.best_match(['de', 'fr', 'en'])
 
 # ------ #
 # ROUTES #
@@ -84,8 +86,6 @@ def logout():
 	return redirect(url_for('index'))
 
 
-
-
 # load the available extensions
 extension_check()
 
@@ -96,8 +96,5 @@ if __name__ == '__main__':
 
 	# set the secret key.  keep this really secret:
 	app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
-
-	# set the default locale language
-	app.config['BABEL_DEFAULT_LOCALE'] = 'en'
 
 	app.run(host='0.0.0.0')
