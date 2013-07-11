@@ -1,0 +1,42 @@
+<div class="page-header">
+  <h1>{{ gettext('Welcome') }}</h1>
+</div>
+
+<p class="lead">Hi, welcome on my Piratebox !</p>
+
+<p>Now, you can anonymously <a href="/explore">browse</a> the files available for download and upload your own, <a href="/discover">discover</a> the existing extensions, or simply <a href="/concept">learn more</a> about the project...</p>
+
+<div id="push"></div>
+
+{% include "modal-introduction.html" %}
+
+<script type="text/javascript">
+  // Toggle a welcome modal when the page loads
+  console.log(window.name);
+ 
+  $(window).load(function(){
+    if (!(window.name == "Don't display the modal"))
+      $('#modal').modal('show');
+  });
+
+  $('#modal-stop').click(function(e) {
+    // Remember the user choice using the window.name (cookie-less solution)
+    window.name = "Don't display the modal";
+    $('#modal').modal('hide');
+  });
+</script>
+
+
+<script type="text/javascript">
+  /** TODO **/
+  // Display a drop down login form
+  $(function() {
+    // Setup drop down menu
+    $('.dropdown-toggle').dropdown();
+
+    // Fix input element click problem
+    $('.dropdown input, .dropdown label').click(function(e) {
+      e.stopPropagation();
+    });
+  } );
+</script>
