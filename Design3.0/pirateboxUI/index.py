@@ -9,6 +9,12 @@ app = Flask(__name__)
 app.config['BABEL_DEFAULT_LOCALE'] = 'en'
 babel = Babel(app)
 
+
+
+# TIPS
+#gettext(u'You are logged in')
+#Logged in as %s' % escape(session['username'])
+
 # --------- #
 # FUNCTIONS #
 # --------- #
@@ -63,20 +69,19 @@ def extensions():
 
 @app.route('/concept')
 def concept():
-	return render_layout(render_template('concept.html'))
+	return render_layout(render_template('concept.html'), 'Concept')
 
-@app.route('/user')
-def user():
+@app.route('/setup')
+def setup():
 	if 'username' in session:
-		return gettext(u'You are logged in')
-		#Logged in as %s' % escape(session['username'])
-	return gettext(u'You are NOT logged in')
+		return render_layout(render_template('setup.html'), 'Setup')
+	return redirect(url_for('login'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-	if request.method == 'POST':
-		session['username'] = request.form['username']
-		return redirect(url_for('index'))
+	if request.method == 'POST' and request.form['password'] == 'password':
+		session['username'] = 'admin'
+		return redirect(url_for('setup'))
 	return render_layout(render_template('login.html'), 'Login')
 
 @app.route('/logout')

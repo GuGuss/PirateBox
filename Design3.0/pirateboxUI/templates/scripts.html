@@ -21,3 +21,35 @@
 <script src="{{ url_for('static', filename='bootstrap/js/bootstrap-carousel.js') }}"></script>
 <script src="{{ url_for('static', filename='bootstrap/js/bootstrap-typeahead.js') }}"></script>	
 -->
+
+<!-- MODAL POPUP -->
+<script type="text/javascript">
+  // Toggle a welcome modal when the page loads
+  console.log(window.name);
+
+  $(window).load(function(){
+    if (!(window.name == "Don't display the modal"))
+      $('#modal').modal('show');
+  });
+
+  $('#modal-stop').click(function(e) {
+    // Remember the user choice using the window.name (cookie-less solution)
+    window.name = "Don't display the modal";
+    $('#modal').modal('hide');
+  });
+</script>
+
+<!-- FOOTER -->
+<script type="text/javascript">
+  // Show some information about the box
+  $(window).load(function(){
+    $("#hover-icon").hover(
+      function () {
+          $("#hover-information").removeClass("hidden");
+      },
+      function () {
+          $("#hover-information").addClass("hidden");
+      }
+    );
+  });
+</script>
