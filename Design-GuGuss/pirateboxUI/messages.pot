@@ -1,0 +1,59 @@
+# Translations template for PROJECT.
+# Copyright (C) 2013 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2013-07-12 17:42+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 0.9.6\n"
+
+#: index.py:27
+#, python-format
+msgid "[Success] %(extension)s has been correctly included"
+msgstr ""
+
+#: index.py:29
+#, python-format
+msgid ""
+"[Error] %(extension)s couldn't be included. \"extension.py\" file is "
+"missing."
+msgstr ""
+
+#: templates/concept.html:2
+msgid "Concept"
+msgstr ""
+
+#: templates/explore.html:2
+msgid "Explore"
+msgstr ""
+
+#: templates/extensions.html:2
+msgid "Extensions"
+msgstr ""
+
+#: templates/login.html:4 templates/login.html:18
+msgid "Login"
+msgstr ""
+
+#: templates/login.html:9
+msgid "Password"
+msgstr ""
+
+#: templates/navbar.html:25 templates/setup.html:2
+msgid "Setup"
+msgstr ""
+
+#: templates/navbar.html:27
+msgid "Logout"
+msgstr ""
+

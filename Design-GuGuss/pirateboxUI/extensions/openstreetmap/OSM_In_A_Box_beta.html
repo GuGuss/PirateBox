@@ -1,0 +1,32 @@
+ <!-- Source code by Gaël Musquet aka RatZillaS under WTFPL licence [http://www.wtfpl.net/] -->
+
+<head>
+	<title>Embed OpenStreetMap on your PirateBox</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{{ url_for('static', filename='../extensions/openstreetmap/leaflet/dist/leaflet.css') }}" />
+	<script type="text/javascript" src="{{ url_for('static', filename='../extensions/openstreetmap/leaflet/dist/leaflet.js') }}"></script>
+
+</head>
+
+<h1>This is your map</h1>
+<!-- Size of the map in pixel-->
+<div id="map" style="width: 600px; height: 600px"></div>
+
+<!-- Start of the leaflet javascript script-->
+<script>
+	// Set center of the map and default zoom
+	var map = L.map('map').setView([48.8627, 2.3313], 12);
+	
+	// Path name of tiles
+	L.tileLayer('file:./tiles/{z}/{x}/{y}.jpg', {
+	
+	//MaxZoom
+	maxZoom: 14,
+	
+	//MinZoom
+	minZoom: 10,
+	attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>'
+	}).addTo(map);
+</script>
+<!-- End of the leaflet javascript script-->

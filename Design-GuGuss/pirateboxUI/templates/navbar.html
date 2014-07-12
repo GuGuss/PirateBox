@@ -1,0 +1,37 @@
+<!-- Fixed navbar -->
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="brand" href="/">Piratebox</a>
+      <div class="nav-collapse collapse">
+        <ul class="nav">
+          <li><a href="/explore">{{ gettext('Explore') }}</a></li>
+          <li><a href="/extensions">{{ gettext('Extensions') }}</a></li>
+          <li><a href="/concept">{{ gettext('Concept') }}</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+
+      <div class="pull-right">
+        <ul class="nav pull-right">
+          {% if 'username' in session %}
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ session['username'] }} <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="/setup"><i class="icon-cog"></i> {{ gettext('Setup') }}</a></li>
+              <li class="divider"></li>
+              <li><a href="/logout"><i class="icon-off"></i> {{ gettext('Logout') }}</a></li>
+            </ul>
+          </li>
+          {% else %}
+          <li><a class="pull-right" href="/login">{{ gettext('Login') }}</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
